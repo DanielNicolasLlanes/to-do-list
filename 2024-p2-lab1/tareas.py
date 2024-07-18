@@ -21,25 +21,27 @@ class ListaEnlazada:
 
     def esta_vacia(self):
         return self.cabeza is None
-
+    
+     #crea un objeto tarea
     def agregar_tarea(self, descripcion, prioridad, categoria):
         tarea = Tarea(self.id_actual, descripcion, prioridad, categoria)
-        nuevo_nodo = Nodo(tarea)
-        self.id_actual += 1
-
+        nuevo_nodo = Nodo(tarea) #crea un nuevo nodo, con el objeto tarea
+        self.id_actual += 1 #actualizar el id para que no se repita
+        
+        # ordena la lista por priorirdad
         if self.esta_vacia() or tarea.prioridad > self.cabeza.tarea.prioridad:
             nuevo_nodo.siguiente = self.cabeza
             self.cabeza = nuevo_nodo
         else:
             actual = self.cabeza
-            while actual.siguiente is not None and actual.siguiente.tarea.prioridad >= tarea.prioridad:
+            while actual.siguiente is not None and actual.siguiente.tarea.prioridad >= tarea.prioridad: #Recorre la lista
                 actual = actual.siguiente
             nuevo_nodo.siguiente = actual.siguiente
             actual.siguiente = nuevo_nodo
 
         print("Tarea agregada con éxito.")
 
-    def buscar_tarea_descripcion(self,texto)->true:
+    def buscar_tarea_descripcion(self,texto)->bool:
         pass
 
     def completar_tarea(self, id):
