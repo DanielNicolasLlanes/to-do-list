@@ -3,6 +3,18 @@
 
     Breve descripción del proyecto y su importancia.
     Objetivos del proyecto y qué se espera lograr con la implementación del sistema.
+    Este proyecto titulado "Sistema de Gestión de Tareas Pendientes" es una propuesta de la cátedra de Programación 2 de la Tecnicatura en Desarrollo de Software del Instituto Técnico Superios Córdoba. El desarrollo del mismo se orienta a desarrollar un sistema que permita a usuarios facilitar la gestión de tareas de manera efectiva. SU funcionamiento se basa tanto en la posibilidad de agregar, eliminar y marcar tareas como completas como en la posibilidad de tener un sistema de prioridades de dichas tareas, realizar búsquedasm organizarlas, etc.
+    
+    Es importante recalcar que la práctica ayuda a aprehender conocimientos y conceptos trabajados en clase, tales como POO, estructuras de datos (en este caso, focalizando en listas enlazadas), nociones de orden y annálisis de algoritmos, etc. Muchas veces los ejercicios realizados en el transcurso de la mcursada son pequeños recortes que no reflejan del todo la compleja realidad de la profesión. De esta manera comenzamos a entender cómo se aplica en un caso concreto todo lo visto en la materia de manera integral. Es importante destacar que el trabajo en grupo es una práctica que nos prepara para integrar en un futuro algún equipo de trabajo.
+
+
+Los objetivos específicos del proyecto propuestos por el docente son:
+
+    -Reforzar conceptos de programación orientada a objetos (POO), proporcionando una base sólida para el desarrollo de software complejo y eficiente.
+    -Practicar el uso de estructuras de datos lineales, en particular listas enlazadas, lo que nos permitirá como estudiantes entender mejor su implementación y manejo.
+    -Desarrollar habilidades en el análisis de algoritmos y notación asintótica, cruciales para evaluar y optimizar la eficiencia del código.
+    -Fomentar el trabajo en equipo y la colaboración, como así también la apropiación de buenas prácticas como comentar el código, la documentación, la validación, verificación y testing.
+
 
 2. Descripción del Sistema
 
