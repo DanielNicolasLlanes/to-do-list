@@ -1,43 +1,43 @@
-import csv
-import os
+import csv #importa modulo csv para trabajar con el archivo tareas.csv en este código
+import os ##importa modulo os para trabajar con el sistema operativo en este código
 
-class Tarea:
-    def __init__(self, id, descripcion, prioridad, categoria="General"):
-        self.id = id
-        self.descripcion = descripcion
-        self.prioridad = prioridad
-        self.completada = False
-        self.categoria = categoria
+class Tarea: #crea una clase Tarea con los siguientes atributos
+    def __init__(self, id, descripcion, prioridad, categoria="General"): #se le pasan los parámetros al constructor ()
+        self.id = id #este atributo sirve para identificar cada Tarea 
+        self.descripcion = descripcion #este atributo sirve para describir que se hace en cada tarea
+        self.prioridad = prioridad #sirve para darle un grado de importancia a cada tarea de mayor a menor
+        self.completada = False #cada objeto tendra un atributo "completada = False" que no se ingresará como parámetro
+        self.categoria = categoria #atributo que si el usuario no ingresa ningun valor, se asigna por defecto como "General" 
 
-class Nodo:
-    def __init__(self, tarea):
-        self.tarea = tarea
-        self.siguiente = None
+class Nodo: #se crea la clase nodo que se usa para las listas enlazadas definidas por:
+    def __init__(self, tarea): #se pasa por parámetro un objeto de la clase tarea
+        self.tarea = tarea #este atributo sirve para asignarse el objeto tarea que se ingresó como parámetro
+        self.siguiente = None #se asigna a cada nodo creado para enlazar el siguiente. Apuntará a None en el caso de que no haya mas nodos
 
-class ListaEnlazada:
-    def __init__(self):
-        self.cabeza = None
-        self.id_actual = 1
+class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo Nodo
+    def __init__(self): #se inicializa la clase sin pasar nada como parámetro
+        self.cabeza = None #se inicia el atributo en la cabeza de la lista como None ya que en un principio la lista esta vacia (sin nodos)
+        self.id_actual = 1 #se crea un contador para identificar cada nodo que luego será asignado como identificador de cada tarea
 
-    def esta_vacia(self):
-        return self.cabeza is None
-    
-     #crea un objeto tarea
-    def agregar_tarea(self, descripcion, prioridad, categoria):
-        tarea = Tarea(self.id_actual, descripcion, prioridad, categoria)
-        nuevo_nodo = Nodo(tarea) #crea un nuevo nodo, con el objeto tarea
-        self.id_actual += 1 #actualizar el id para que no se repita
-        
-        # ordena la lista por priorirdad
-        if self.esta_vacia() or tarea.prioridad > self.cabeza.tarea.prioridad:
-            nuevo_nodo.siguiente = self.cabeza
-            self.cabeza = nuevo_nodo
-        else:
-            actual = self.cabeza
-            while actual.siguiente is not None and actual.siguiente.tarea.prioridad >= tarea.prioridad: #Recorre la lista
-                actual = actual.siguiente
-            nuevo_nodo.siguiente = actual.siguiente
-            actual.siguiente = nuevo_nodo
+    #este método devuelve un booleano que nos dirá si la lista esta vacía 
+    def esta_vacia(self): #se define el método sin parámetros que ingresar
+        return self.cabeza is None #devuelve un valor booleano True si la condición es cierta
+
+    #este método se crea para agregar una tarea en la lista, envuelve la tarea en un nodo, le asigna un valor unico de Id y por último la ordena por prioridad 
+    def agregar_tarea(self, descripcion, prioridad, categoria): #define el método con los parámetros descripción, prioridad y categoria
+        tarea = Tarea(self.id_actual, descripcion, prioridad, categoria) #crea un objeto de clase Tarea y le asigna como ID el valor definido en self.id_actual y los demás valores pasados como parámetro
+        nuevo_nodo = Nodo(tarea) #envuelve el objeto tarea creado dentro de un nodo y lo asigna a una variable  
+        self.id_actual += 1 #incrementa el id en uno para la siguiente tarea
+        if self.esta_vacia() or tarea.prioridad > self.cabeza.tarea.prioridad: #usa el condicional para preguntar si la lista esta vacia o si la prioridad de la nueva tarea es mayor a la prioridad del primer elemento de la lista  
+            nuevo_nodo.siguiente = self.cabeza #si la condición se cumple, el nuevo nodo en el valor de siguiente apunta a la cabeza de la lista (cabeza queda siguiente al nuevo nodo)
+            self.cabeza = nuevo_nodo #cabeza pasa a ser el nuevo nodo
+        else: #si no se cumplió la condición en el if, se recorre la lista para encontrar el lugar de la prioridad de la tarea
+            actual = self.cabeza #self.cabeza es el actual nodo que se tomará para recorrer la lista 
+            while actual.siguiente is not None and actual.siguiente.tarea.prioridad >= tarea.prioridad: #mientras el nodo siguiente al actual no sea none y mientras la prioridad del siguiente al actual sea mayor o igual a la prioridad de la nueva tarea que queremos agregar
+                actual = actual.siguiente #actual pasa a valer el siguiente nodo de la lista
+            #cuando salga del bucle del while agrega el elemento a la lista    
+            nuevo_nodo.siguiente = actual.siguiente #el siguiente del nuevo nodo es el siguiente del nodo actual
+            actual.siguiente = nuevo_nodo #el siguiente del nodo actual es el nuevo nodo
 
         print("Tarea agregada con éxito.")
 
