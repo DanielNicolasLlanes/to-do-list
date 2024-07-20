@@ -43,7 +43,6 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
             actual.siguiente = nuevo_nodo #el siguiente nodo del actual pasa a ser el nuevo nodo
 
         self.pendientes +=1
-
         print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
 
     def buscar_tarea_descripcion(self,texto)->bool: #crea el método buscar
