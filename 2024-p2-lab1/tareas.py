@@ -19,6 +19,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
         self.cabeza = None #se inicia el atributo en la cabeza de la lista como None ya que en un principio la lista esta vacia (sin nodos)
         self.id_actual = 1 #se crea un contador para identificar cada nodo que luego será asignado como identificador de cada tarea
         self.pendientes = 0
+        self.tamano = 0
 
 
     #este método devuelve un booleano que nos dirá si la lista esta vacía 
@@ -43,10 +44,23 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
             actual.siguiente = nuevo_nodo #el siguiente nodo del actual pasa a ser el nuevo nodo
 
         self.pendientes +=1
+        self.tamano += 1
+
         print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
 
+
+
     def buscar_tarea_descripcion(self,texto)->bool: #crea el método buscar
-        pass
+        tarea_actual = self.cabeza
+        encontrada = False
+        while tarea_actual is not None:
+            if tarea_actual.tarea.descripcion == texto:
+                encontrada = True
+                break
+            else: 
+                tarea_actual = tarea_actual.siguiente
+        return encontrada
+             
 
     def completar_tarea(self, id):
         actual = self.cabeza
@@ -68,11 +82,13 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
                 if previo is None: #si lo anterior es cierto, vuelve a preguntar si la variable previo es none
                     if actual.tarea.completada == False: #si la tarea a eliminar estaba pendiente
                         self.pendiente -= 1 #resta 1 al atributo 
+                        self.tamano -= 1
                     self.cabeza = actual.siguiente #actualiza la cabeza a su valor siguiente
                 else: #si previo no es none 
                     previo.siguiente = actual.siguiente #el siguiente del previo pasa a ser el siguiente del actual y el nodo actual se pierde
                     if actual.tarea.completada == False: ##si la tarea a eliminar estaba pendiente
                         self.pendiente -= 1 #resta 1 al atributo 
+                        self.tamano -= 1
                 print(f"Tarea eliminada: {actual.tarea.descripcion}") #imprime en pantalla que la tarea se eliminó y muestra la descripcion de la tarea
                 return #corta la función en ese instante
             previo = actual #si el id de la tarea actual no coincide con el ingresado por parametro, previo vale el nodo actual
@@ -90,23 +106,38 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
 
     def mostrar_tareas_pendientes(self):
-        pass
+        tarea_actual = self.cabeza
+        while tarea_actual is not None:
+            if tarea_actual.tarea.completada is False:
+                print(tarea_actual.tarea)
+            tarea_actual = tarea_actual.siguiente
         
 
     def mostrar_tareas_descripcion(self,text)->None:
-        pass
+        tarea_actual = self.cabeza
+        while tarea_actual is not None:
+            if tarea_actual.tarea.descripcion == texto:
+                print(tarea_actual.tarea)
+            tarea_actual = tarea_actual.siguiente
 
 
-    # F unciones estadisticas:
+    # Funciones estadisticas:
     def contar_tareas_pendientes(self)->int:
-        pass
+        tarea_actual = self.cabeza
+        pendiente = 0
+        while tarea_actual is not None:
+            if tarea_actual.tarea.completada is False:
+                pendiente += 1
+            tarea_actual = tarea_actual.siguiente
+        return pendiente
 
 
     def contar_tareas_pendientes_cte(self)->int:
-        pass
+        return self.pendientes
+
 
     def mostrar_estadisticas(self)->None:
-        pass
+        print("Completaste " + str(self.tamano - self.pendientes) + "tareas de " + str(self.tamano)) 
 
 
         
