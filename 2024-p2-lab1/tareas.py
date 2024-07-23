@@ -50,19 +50,16 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
 
 
-    def buscar_tarea_descripcion(self,texto)->bool: #crea el método buscar
+    def buscar_tarea_descripcion(self,texto)->bool: #crea el método buscar tarea por descripcion
         tarea_actual = self.cabeza
-        encontrada = False
         while tarea_actual is not None:
-            if tarea_actual.tarea.descripcion == texto:
-                encontrada = True
-                break
-            else: 
-                tarea_actual = tarea_actual.siguiente
-        return encontrada
+            if tarea_actual.tarea.descripcion.lower() == texto.lower():
+                return True
+            tarea_actual = tarea_actual.siguiente
+        return False
              
 
-    def completar_tarea(self, id):
+    def completar_tarea(self, id)->bool:
         actual = self.cabeza
         while actual != None:
             if actual.tarea.id == id:
@@ -71,6 +68,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
                 return True
             else:
                 actual = actual.siguiente
+        return False
         
 
     #elimina tarea por id   
@@ -81,13 +79,13 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
             if actual.tarea.id == id: #pregunta si el id de la tarea de actual es igual a id pasado por parametro
                 if previo is None: #si lo anterior es cierto, vuelve a preguntar si la variable previo es none
                     if actual.tarea.completada == False: #si la tarea a eliminar estaba pendiente
-                        self.pendiente -= 1 #resta 1 al atributo 
+                        self.pendientes -= 1 #resta 1 al atributo 
                         self.tamano -= 1
                     self.cabeza = actual.siguiente #actualiza la cabeza a su valor siguiente
                 else: #si previo no es none 
                     previo.siguiente = actual.siguiente #el siguiente del previo pasa a ser el siguiente del actual y el nodo actual se pierde
                     if actual.tarea.completada == False: ##si la tarea a eliminar estaba pendiente
-                        self.pendiente -= 1 #resta 1 al atributo 
+                        self.pendientes -= 1 #resta 1 al atributo 
                         self.tamano -= 1
                 print(f"Tarea eliminada: {actual.tarea.descripcion}") #imprime en pantalla que la tarea se eliminó y muestra la descripcion de la tarea
                 return #corta la función en ese instante
@@ -106,18 +104,46 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
 
     def mostrar_tareas_pendientes(self):
+        contador = 0
         tarea_actual = self.cabeza
         while tarea_actual is not None:
             if tarea_actual.tarea.completada is False:
-                print(tarea_actual.tarea)
+                print(f"ID: {tarea_actual.tarea.id}, Descripción: {tarea_actual.tarea.descripcion}, Prioridad: {tarea_actual.tarea.prioridad}, Categoría: {tarea_actual.tarea.categoria}, Estado: Pendiente") #imprime la tarea con todos sus atributos
+            else:
+                contador += 1
             tarea_actual = tarea_actual.siguiente
+        if contador > 0:
+            print("No hay tareas pendientes!")
         
-
-    def mostrar_tareas_descripcion(self,text)->None:
+    def mostrar_descripcion(self)->None: #Muestra solo de descripcion de las tareas
         tarea_actual = self.cabeza
         while tarea_actual is not None:
-            if tarea_actual.tarea.descripcion == texto:
-                print(tarea_actual.tarea)
+            print(f"{tarea_actual.tarea.descripcion}")
+            tarea_actual = tarea_actual.siguiente
+
+    def mostrar_tareas_descripcion(self, texto)->None: #Muestra las tareas por una descripcion dada por le usuario
+        tarea_actual = self.cabeza
+        while tarea_actual is not None:
+            if tarea_actual.tarea.descripcion.lower() == texto.lower():
+                estado = "Completada" if tarea_actual.tarea.completada else "Pendiente"
+                print(f"{tarea_actual.tarea.descripcion}, Piroridad:{tarea_actual.tarea.prioridad}, Categoría: {tarea_actual.tarea.categoria}, Estado: {estado}")
+            tarea_actual = tarea_actual.siguiente
+
+    
+    def buscar_categoria(self, categoria)->bool:
+        tarea_actual = self.cabeza
+        while tarea_actual is not None:
+            if tarea_actual.tarea.categoria.lower() == categoria.lower():
+                return True
+            tarea_actual = tarea_actual.siguiente
+        return False
+    
+    def mostrar_tareas_categoria(self, categoria)->None:
+        tarea_actual = self.cabeza
+        while tarea_actual is not None:
+            if tarea_actual.tarea.categoria.lower() == categoria.lower():
+                estado = "Completada" if tarea_actual.tarea.completada else "Pendiente"
+                print(f"ID: {tarea_actual.tarea.id}, Descripción: {tarea_actual.tarea.descripcion}, Prioridad: {tarea_actual.tarea.prioridad}, Categoría: {tarea_actual.tarea.categoria}, Estado: {estado}")
             tarea_actual = tarea_actual.siguiente
 
 
@@ -137,7 +163,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
 
     def mostrar_estadisticas(self)->None:
-        print("Completaste " + str(self.tamano - self.pendientes) + "tareas de " + str(self.tamano)) 
+        print("Completaste " + str(self.tamano - self.pendientes) + " tareas de " + str(self.tamano)) 
 
 
         
@@ -180,6 +206,21 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
         if tarea.id >= self.id_actual:
             self.id_actual = tarea.id + 1
 
+#asserts
+lista = ListaEnlazada()
+assert lista.esta_vacia() == True
+lista.agregar_tarea("bañarme",3,"aseo")
+assert lista.contar_tareas_pendientes() == 1
+assert lista.buscar_tarea_descripcion("bañarme") == True
+lista.agregar_tarea("lavar los platos", 2, "aseo")
+assert lista.contar_tareas_pendientes() == 2
+lista.eliminar_tarea(2)
+assert lista.contar_tareas_pendientes_cte() == 1
+assert lista.agregar_tarea("bañarme", 3, "aseo") != True, "no se puede añadir una tarea igual"
+assert lista.buscar_categoria("ASeo") == True
+lista.agregar_tarea("arreglar la bici", 2, "trabajo")
+assert lista.buscar_tarea_descripcion("ARREGLAR la Bici") == True
+
 
 def menu():
     print("\nMenú:")
@@ -190,7 +231,12 @@ def menu():
     print("5. Mostrar tareas pendientes")
     print("6. Guardar tareas en archivo CSV")
     print("7. Cargar tareas desde archivo CSV")
-    print("8. Salir")
+    print("8. Mostrar descripción de las tareas")
+    print("9. Mostrar tareas por descripción")
+    print("10. Mostrar tareas por categoría")
+    print("11. Mostrar estadisticas")
+    print("12. Salir")
+    
 
 def main():
     lista_tareas = ListaEnlazada()
@@ -206,7 +252,10 @@ def main():
             descripcion = input("Ingrese la descripción de la tarea: ")
             prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): "))
             categoria = input("Ingrese la categoría de la tarea: ")
-            lista_tareas.agregar_tarea(descripcion, prioridad, categoria)
+            if lista_tareas.buscar_tarea_descripcion(descripcion):
+                print("La tarea ya existe")
+            else:
+                lista_tareas.agregar_tarea(descripcion, prioridad, categoria)
         elif opcion == "2":
             id_tarea = int(input("Ingrese el ID de la tarea a completar: "))
             if lista_tareas.completar_tarea(id_tarea):
@@ -217,14 +266,46 @@ def main():
             id_tarea = int(input("Ingrese el ID de la tarea a eliminar: "))
             lista_tareas.eliminar_tarea(id_tarea)
         elif opcion == "4":
-            lista_tareas.mostrar_tareas()
+            if lista_tareas.esta_vacia():
+                print("Actualmente no hay tareas")
+            else:
+                lista_tareas.mostrar_tareas()
         elif opcion == "5":
-            lista_tareas.mostrar_tareas_pendientes()
+            if lista_tareas.esta_vacia():
+                print("Actualmente no hay tareas")
+            else:
+                lista_tareas.mostrar_tareas_pendientes()
         elif opcion == "6":
             lista_tareas.guardar_en_csv(archivo_csv)
         elif opcion == "7":
             lista_tareas.cargar_desde_csv(archivo_csv)
         elif opcion == "8":
+            if lista_tareas.esta_vacia():
+                print("Actualmente no hay tareas")
+            else:
+                lista_tareas.mostrar_descripcion()
+        elif opcion == "9":
+            if lista_tareas.esta_vacia():
+                print("Actualmente no hay tareas")
+            else:
+                descripcion = input("Ingrese la descripción de la tarea: ")
+                if lista_tareas.buscar_tarea_descripcion(descripcion):
+                    lista_tareas.mostrar_tareas_descripcion(descripcion)
+        elif opcion == "10":
+            if lista_tareas.esta_vacia():
+                print("Actualemten no hay tareas")
+            else:
+                categoria = input("Ingrese una categoría: ")
+                if lista_tareas.buscar_categoria(categoria):
+                    lista_tareas.mostrar_tareas_categoria(categoria)
+                else:
+                    print("No existe esa categoría")
+        elif opcion == "11":
+            if lista_tareas.esta_vacia():
+                print("Actualmente no hay tareas")
+            else:
+                lista_tareas.mostrar_estadisticas()
+        elif opcion == "12":
             print("Saliendo del sistema de gestión de tareas.")
             break
         else:
