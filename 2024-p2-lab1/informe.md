@@ -20,15 +20,48 @@ Los objetivos específicos del proyecto propuestos por el docente son:
 
     Funcionalidades Implementadas:
         Lista y descripción de las funcionalidades básicas y avanzadas desarrolladas.
+        Funcionalidades Básicas y avanzadas dsarrolladas en el proyecto: 
+        -   esta_vacia: recorre la lista y devuelve un valor booleano que indica si la lista enladaza esta vacía.
+
+        -   agregar_tarea: con los 3 valores que pide como parámetros, crea los nodos de la lista enlazada, le da un id a cada nueva tarea agragada, y las va acomodando en la lista según la prioridad mas alta, mostrando al usuario un msj satisfactorio en caso de haberse agregado de manera efectiva la tarea. En éste mismo método en dos atributos diferentes, se van contando las tareas que se ingresan las cuales inmediatamente suman como pendientes y el tamaño que refiere a la cantidad de tareas agregadas.
+
+        -   buscar_tarea_descripción: recorre la lista y devuelve un valor booleano al pedir que se ingrese como parámetro un texto que lo compara con la descrición de la tarea del nodo.
+
+        -   completar_tarea: (pide id y cambia completado a True. no devuelve nada. actualiza self.pendientes)
+
+        -   eliminar_tarea: (pide id para buscar y eliminar, recorre la lista, actualiza self.pendientes y self.tamano, muestar en pantalla tarea elimnada o  no encontrada)
+
+        -   mostrar_tareas: (recorre la lista. muestra estado de completada o pendiente, y los datos de las tarea)
+
+        -   mostrar_tareas_pendientes: (recorre la lista y si completada es falso muestra en pantalla la tarea actual con sus parámetros)
+
+        -   mostrar_tareas_descripcion: (recorre la lista. pide un parámetro de texto que si coincide con la descripcion del nodo actual, muestar en pantalla la tarea con sus parámetros)
+
+        -   contar_tareas_pendientes: (de orden lineal. cuenta la cantidad de tareas que figuran pendientes)
+
+        -   contar_tareas_pendientes_cte: (de orden cte. devuelve el valor del atributo self.pendientes)
+
+        -   mostrar_estadisticas: (muestra por pantalla un calculo del porcentaje de tareas que figuran completas sobre el total de las tareas ingresadas)
+
+        -   agregar_tarea_existente: (pide una tarea, crea un nodo con esa tarea, compara prioridades y va buscando el lugar para agregar ese nodo. cuando inserta el nodo actualiza el id de la tarea)
+
+        -   menu: (procedimiento que muestra en pantalla las opciones posibles a elegir enumerandolas del 1 al 8)
+
+        -   main: (procedimiento sin parámetros formado por una lista de tareas de clase lista enlazada donde con un bucle y según la opción ingresada por el ususario, ejecuta los métodos de la lista enlazada. crea la variable lista_tareas que contiene un objeto de clase Lista_Enlazada. Con un bucle while True y usando el procedimiento menu(), según la opción ingresada por el usuario ejecuta los métodos definidos de la lista enlazada y efectiviza el programa)
+        
     Estructuras de Datos Utilizadas:
         Explicación de la implementación de la lista enlazada y nodos en el sistema.
 
 3. Metodología y Diseño
     Diseño del Código:
         Descripción concisa de las clases principales (Tarea, Nodo, ListaEnlazada) y su interacción.
+        -   clase Tarea:(cada objeto de esta clase se crea con el id, descripcion y prioridad ingresadas por el usuario, mientras que el atributo categoria si no es ingresado por el usuario el programa le asigna por defecto el valor "General" y el atributo completada siempre inicializado en False.)
 
-4. Implementación y Ejemplos
+        -   clase nodo: (dcreada con dos atributos, uno que es la tarea en si y otra parte que es el espacio que apunta al siguiente. Esta clase creará los nodos que necesita la lista enlazada) 
 
+        -   clase ListaEnlazada: ()
+
+4. Implementación y Ejemplo
     Detalles de Implementación:
         Explicación breve de cómo se implementaron las funcionalidades principales.
     Casos de Uso y Ejemplos:
