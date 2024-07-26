@@ -59,11 +59,14 @@ Los objetivos específicos del proyecto propuestos por el docente son:
 
         -   clase nodo: (dcreada con dos atributos, uno que es la tarea en si y otra parte que es el espacio que apunta al siguiente. Esta clase creará los nodos que necesita la lista enlazada) 
 
-        -   clase ListaEnlazada: ()
+        -   clase ListaEnlazada: (define el contructor de la lista inicializando la cabeza en None, el id_actual en 1 que luego va incrementando y se definen dos atributos pendiente y tamano iniciados en 0 que se usan en los metodos de la misma clase)
+
+        Interacción: La lista enlazada esta formada por nodos que se crean con la clase nodo y cuyos datos serán los referidos a la clase Tarea
 
 4. Implementación y Ejemplo
     Detalles de Implementación:
         Explicación breve de cómo se implementaron las funcionalidades principales.
+        
     Casos de Uso y Ejemplos:
         Ejemplos de ejecución del sistema para diferentes escenarios de uso.
 
