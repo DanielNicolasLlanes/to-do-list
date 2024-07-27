@@ -80,13 +80,13 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
                 if previo is None: #si lo anterior es cierto, vuelve a preguntar si la variable previo es none
                     if actual.tarea.completada == False: #si la tarea a eliminar estaba pendiente
                         self.pendientes -= 1 #resta 1 al atributo 
-                        self.tamano -= 1
+                    self.tamano -= 1
                     self.cabeza = actual.siguiente #actualiza la cabeza a su valor siguiente
                 else: #si previo no es none 
                     previo.siguiente = actual.siguiente #el siguiente del previo pasa a ser el siguiente del actual y el nodo actual se pierde
                     if actual.tarea.completada == False: ##si la tarea a eliminar estaba pendiente
                         self.pendientes -= 1 #resta 1 al atributo 
-                        self.tamano -= 1
+                    self.tamano -= 1
                 print(f"Tarea eliminada: {actual.tarea.descripcion}") #imprime en pantalla que la tarea se eliminó y muestra la descripcion de la tarea
                 return #corta la función en ese instante
             previo = actual #si el id de la tarea actual no coincide con el ingresado por parametro, previo vale el nodo actual
@@ -202,8 +202,6 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
                 self.agregar_tarea_existente(tarea)
             print(f"Tareas cargadas desde {archivo} con éxito.")
 
-
-
     def agregar_tarea_existente(self, tarea):
         nuevo_nodo = Nodo(tarea)
         if self.esta_vacia() or tarea.prioridad > self.cabeza.tarea.prioridad:
@@ -218,6 +216,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
         if tarea.id >= self.id_actual:
             self.id_actual = tarea.id + 1
+
 
 #asserts
 lista = ListaEnlazada()
