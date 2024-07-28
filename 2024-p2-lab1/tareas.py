@@ -29,6 +29,8 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
     #este método se crea para agregar una tarea en la lista, envuelve la tarea en un nodo, le asigna un valor unico de Id y por último la ordena por prioridad 
     def agregar_tarea(self, descripcion, prioridad, categoria): #define el método con los parámetros descripción, prioridad y categoria
+        assert not self.buscar_tarea_descripcion(descripcion), "La tarea ya existe" #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
+        assert isinstance(prioridad, int), "La prioridad debe ser numérica"
         tarea = Tarea(self.id_actual, descripcion, prioridad, categoria) #crea un objeto de clase Tarea y le asigna como ID el valor definido en self.id_actual y los demás valores pasados como parámetro
         nuevo_nodo = Nodo(tarea) #envuelve el objeto tarea creado dentro de un nodo y lo asigna a una variable  
         self.id_actual += 1 #incrementa el id en uno para la siguiente tarea
