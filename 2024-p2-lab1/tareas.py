@@ -31,6 +31,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
     def agregar_tarea(self, descripcion, prioridad, categoria): #define el método con los parámetros descripción, prioridad y categoria
         assert not self.buscar_tarea_descripcion(descripcion), "La tarea ya existe" #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
         assert isinstance(prioridad, int), "La prioridad debe ser numérica"
+        assert prioridad in [1, 2, 3], "La prioridad debe ser 1, 2 ó 3"
         tarea = Tarea(self.id_actual, descripcion, prioridad, categoria) #crea un objeto de clase Tarea y le asigna como ID el valor definido en self.id_actual y los demás valores pasados como parámetro
         nuevo_nodo = Nodo(tarea) #envuelve el objeto tarea creado dentro de un nodo y lo asigna a una variable  
         self.id_actual += 1 #incrementa el id en uno para la siguiente tarea
@@ -99,6 +100,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
     #muestra todas las tareas
     def mostrar_tareas(self): #se define método mostrar tareas sin parámetros
         actual = self.cabeza #crea una variable actual asignando el nodo cabeza
+        assert actual is not None, "No hay tareas para mostrar"
         while actual is not None: #crea un bucle que se ejecuta mientras actual no sea none
             estado = "Completada" if actual.tarea.completada else "Pendiente" #muestra "completada" o "pendiente" según el atributo completada
             print(f"ID: {actual.tarea.id}, Descripción: {actual.tarea.descripcion}, Prioridad: {actual.tarea.prioridad}, Categoría: {actual.tarea.categoria}, Estado: {estado}") #imprime la tarea con todos sus atributos
@@ -108,22 +110,19 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
  #muestra por pantalla las tareas que no estan completadas con la totalidad de sus atributos
     def mostrar_tareas_pendientes(self):  #define el nombre del método sin parámetros
-        contador_completadas = 0 # crea auna variable para contar las tareas completadas
-        contador = 0 # crea una variable para contar todas las tareas de la lista
+        if self.pendientes == 0: 
+            print("No hay tareas pendientes!") # imprime que no hay tareas pendientes
         tarea_actual = self.cabeza #crea la variable y la inicializa en la cabeza de la lista
         while tarea_actual is not None: #crea un ciclo condicional para ejecutar mientras tarea actual sea distinto de None
-            contador += 1 # cada vez que entra al bucle se cuenta uno
             if tarea_actual.tarea.completada is False:  #si el atributo completada de la tarea del nodo actual es False
                 print(f"ID: {tarea_actual.tarea.id}, Descripción: {tarea_actual.tarea.descripcion}, Prioridad: {tarea_actual.tarea.prioridad}, Categoría: {tarea_actual.tarea.categoria}, Estado: Pendiente") #imprime la tarea con todos sus atributos
-            else:
-                contador_completadas += 1 # si la tarea no esta completada se suma uno a la variable completadas
-            tarea_actual = tarea_actual.siguiente  #actualiza el nodo al siguiente
-        if contador == contador_completadas: # si las tareas completadas son todas las de la lista:
-            print("No hay tareas pendientes!") # imprime que no hay tareas completadas
+          
+        
 
         
     def mostrar_descripcion(self)->None: #Muestra solo de descripcion de las tareas
         tarea_actual = self.cabeza
+        assert tarea_actual in not None, "No hay tareas para mostrar"
         while tarea_actual is not None:
             print(f"{tarea_actual.tarea.descripcion}")
             tarea_actual = tarea_actual.siguiente
@@ -132,6 +131,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 #muestra por pantalla las tareas que se que tienen el valor ingresado en un parámetro
     def mostrar_tareas_descripcion(self, texto)->None: #define el nombre de la función y que se ingrese un parámetro
         tarea_actual = self.cabeza #crea la variable inicializada en la cabeza de la lista
+        assert tarea_actual is not None, "No hay tareas para mostrar"
         while tarea_actual is not None: #crea un ciclo condicional para ejecutar mientras tarea actual sea distinto de None
             if tarea_actual.tarea.descripcion.lower() == texto.lower():  #crea un condicional a ejecutarse si el atributo en la descripción de la tarea actual es igual al parámetro ingresado, transformado en minusculas
                 estado = "Completada" if tarea_actual.tarea.completada else "Pendiente" # se crea la variable estado para mostrar el estado de la tarea en funcion de su valor 
@@ -150,6 +150,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
  # Motrar todas las tareas que cumplan con una categoría ingreasada por parametro
     def mostrar_tareas_categoria(self, categoria)->None: # define le nombre de la función y que ingrese un parametro
         tarea_actual = self.cabeza # Crea la variable tarea_actual inicializada en la cabeza de la lista
+        assert tarea_actual is not None, "No hay tareas para mostrar"
         while tarea_actual is not None: # Crea un ciclo condicional, mientras tarea_actual sea distinto de None
             if tarea_actual.tarea.categoria.lower() == categoria.lower(): # Crea un condicional que compara si la categoría ingreasada por parametro es igual a la categoría del nodo actual, transformado a minusculas
                 estado = "Completada" if tarea_actual.tarea.completada else "Pendiente" # Si es cierto, crea una variable estado que tendrá un mensaje u otro dependiendo si la tarea esta completada o no
