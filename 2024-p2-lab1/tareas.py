@@ -112,11 +112,12 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
     def mostrar_tareas_pendientes(self):  #define el nombre del método sin parámetros
         if self.pendientes == 0: 
             print("No hay tareas pendientes!") # imprime que no hay tareas pendientes
-        tarea_actual = self.cabeza #crea la variable y la inicializa en la cabeza de la lista
-        while tarea_actual is not None: #crea un ciclo condicional para ejecutar mientras tarea actual sea distinto de None
-            if tarea_actual.tarea.completada is False:  #si el atributo completada de la tarea del nodo actual es False
-                print(f"ID: {tarea_actual.tarea.id}, Descripción: {tarea_actual.tarea.descripcion}, Prioridad: {tarea_actual.tarea.prioridad}, Categoría: {tarea_actual.tarea.categoria}, Estado: Pendiente") #imprime la tarea con todos sus atributos
-          
+        else: 
+            tarea_actual = self.cabeza #crea la variable y la inicializa en la cabeza de la lista
+            while tarea_actual is not None: #crea un ciclo condicional para ejecutar mientras tarea actual sea distinto de None
+                if tarea_actual.tarea.completada is False:  #si el atributo completada de la tarea del nodo actual es False
+                    print(f"ID: {tarea_actual.tarea.id}, Descripción: {tarea_actual.tarea.descripcion}, Prioridad: {tarea_actual.tarea.prioridad}, Categoría: {tarea_actual.tarea.categoria}, Estado: Pendiente") #imprime la tarea con todos sus atributos
+                tarea_actual = tarea_actual.siguiente
         
 
         
