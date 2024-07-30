@@ -29,9 +29,6 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
     #este método se crea para agregar una tarea en la lista, envuelve la tarea en un nodo, le asigna un valor unico de Id y por último la ordena por prioridad 
     def agregar_tarea(self, descripcion, prioridad, categoria): #define el método con los parámetros descripción, prioridad y categoria
-        assert not self.buscar_tarea_descripcion(descripcion), "La tarea ya existe" #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
-        assert isinstance(prioridad, int), "La prioridad debe ser numérica"
-        assert prioridad in [1, 2, 3], "La prioridad debe ser 1, 2 ó 3"
         tarea = Tarea(self.id_actual, descripcion, prioridad, categoria) #crea un objeto de clase Tarea y le asigna como ID el valor definido en self.id_actual y los demás valores pasados como parámetro
         nuevo_nodo = Nodo(tarea) #envuelve el objeto tarea creado dentro de un nodo y lo asigna a una variable  
         self.id_actual += 1 #incrementa el id en uno para la siguiente tarea
@@ -48,9 +45,6 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
         self.pendientes +=1 #se incrementa pendientes en 1 cada vez que se agrega una tarea
         self.tamano += 1 #se incrementa en 1 tamano para ir contando las tareas que se van agregando
-
-        print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
-
 
     #este método se crea para buscar una tarea por coincidencia con la descripción de la misma tarea con la descripción solicitada
     def buscar_tarea_descripcion(self,texto)->bool:  #se define nombre del método con el parámetro a buscar en la descripción de cada tarea 
@@ -269,12 +263,20 @@ def main(): #llama al procedimiento main
         opcion = input("Seleccione una opción: ")  #crea una variable que guarda un valor solicitado al usuario
         if opcion == "1":  #con el condicional if, si es verdad que el valor guardado en opcion es 1
             descripcion = input("Ingrese la descripción de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
+            if self.buscar_tarea_descripcion(descripcion):
+                print( "La tarea ya existe") #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
+                seguir= int(input("Si querés seguir agregando, ingresá 1. Si querés volver al menú ingresá 2"))
+                if seguir == 1:
+                    descripción = input("Ingrese la descripción de la tarea: ")
+                else:
+                    break
             prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
+            while prioridad not in [1, 2, 3]:
+                print("La prioridad debe ser númerica (1 = baja, 2 = media, 3 = alta)")
+                prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
             categoria = input("Ingrese la categoría de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
-            if lista_tareas.buscar_tarea_descripcion(descripcion): #pregunta si la tarea ya existe por su descripcion, llamando al metodo buscar_tarea
-                print("La tarea ya existe") # Si es cierto, muestra el mensaje
-            else: 
-                lista_tareas.agregar_tarea(descripcion, prioridad, categoria)  #Si no, ejecuta el método agregar_tarea de la lista enlazada 
+            lista_tareas.agregar_tarea(descripcion, prioridad, categoria)  #Si no, ejecuta el método agregar_tarea de la lista enlazada 
+            print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
         elif opcion == "2": #con el condicional if, si es verdad que el valor guardado en opcion es 2
             id_tarea = int(input("Ingrese el ID de la tarea a completar: ")) #crea una variable que guarda el valor que ingresa el usuario
             if lista_tareas.completar_tarea(id_tarea): #mediante el condicional if si el método completar_tarea (usando el parámetro de id que ingreso el usuario) es True
