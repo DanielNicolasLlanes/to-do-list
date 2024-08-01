@@ -117,11 +117,10 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
         
     def mostrar_descripcion(self)->None: #Muestra solo de descripcion de las tareas
         tarea_actual = self.cabeza
-        assert tarea_actual in not None, "No hay tareas para mostrar"
+        assert tarea_actual is not None, "No hay tareas para mostrar"
         while tarea_actual is not None:
             print(f"{tarea_actual.tarea.descripcion}")
             tarea_actual = tarea_actual.siguiente
-a
 
 #muestra por pantalla las tareas que se que tienen el valor ingresado en un parámetro
     def mostrar_tareas_descripcion(self, texto)->None: #define el nombre de la función y que se ingrese un parámetro
