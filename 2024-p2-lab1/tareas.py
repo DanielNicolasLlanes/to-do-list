@@ -70,7 +70,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
     #elimina tarea por id   
     def eliminar_tarea(self, id): #elimina la tarea por Id
-        actual = self.cabeza #crea la variable que inicie en el primer elemento
+        actual = self.cabeza #crea la variable que inicie en el primer elementoa
         previo = None #crea variable con valor none
         while actual is not None: #crea un bucle para recorrer la lista 
             if actual.tarea.id == id: #pregunta si el id de la tarea de actual es igual a id pasado por parametro
@@ -121,7 +121,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
         while tarea_actual is not None:
             print(f"{tarea_actual.tarea.descripcion}")
             tarea_actual = tarea_actual.siguiente
-
+a
 
 #muestra por pantalla las tareas que se que tienen el valor ingresado en un parámetro
     def mostrar_tareas_descripcion(self, texto)->None: #define el nombre de la función y que se ingrese un parámetro
@@ -263,11 +263,11 @@ def main(): #llama al procedimiento main
         opcion = input("Seleccione una opción: ")  #crea una variable que guarda un valor solicitado al usuario
         if opcion == "1":  #con el condicional if, si es verdad que el valor guardado en opcion es 1
             descripcion = input("Ingrese la descripción de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
-            if self.buscar_tarea_descripcion(descripcion):
+            if lista_tareas.buscar_tarea_descripcion(descripcion):
                 print( "La tarea ya existe") #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
                 seguir= int(input("Si querés seguir agregando, ingresá 1. Si querés volver al menú ingresá 2"))
                 if seguir == 1:
-                    descripción = input("Ingrese la descripción de la tarea: ")
+                    descripcion = input("Ingrese la descripción de la tarea: ")
                 else:
                     break
             prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
@@ -278,12 +278,22 @@ def main(): #llama al procedimiento main
             lista_tareas.agregar_tarea(descripcion, prioridad, categoria)  #Si no, ejecuta el método agregar_tarea de la lista enlazada 
             print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
         elif opcion == "2": #con el condicional if, si es verdad que el valor guardado en opcion es 2
+            if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
+                print("Actualmente no hay tareas") # Si es cierto, imprime el mensaje
             id_tarea = int(input("Ingrese el ID de la tarea a completar: ")) #crea una variable que guarda el valor que ingresa el usuario
             if lista_tareas.completar_tarea(id_tarea): #mediante el condicional if si el método completar_tarea (usando el parámetro de id que ingreso el usuario) es True
                 print ("Tarea Completada")  #muestra en pantalla "Tarea Completada"
             else: #si el método completar_tarea no es True y termna de recorrer la lista, significa que el id buscado no exste en la lista 
                 print ("Tarea no encontrada") #muestra en pantalla Tarea no encontrada
         elif opcion == "3":  #con el condicional if, si es verdad que el valor guardado en opcion es 3
+            if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
+                print("Actualmente no hay tareas") # Si es cierto, imprime el mensaje
+            descripcion = input("Ingese la descripción de la tarea a eliminar: ")
+            if lista_tareas.buscar_tarea_descripcion(descripcion): # Si la llamada al método buscar_tarea_descripcion es cierta
+                    lista_tareas.mostrar_tareas_descripcion(descripcion) # Muestra las tareas de esa descripción
+            else:
+                print("No existe ninguna tarea con esa descripción")
+                break
             id_tarea = int(input("Ingrese el ID de la tarea a eliminar: ")) #crea una variable que guarda el valor que ingresa el usuario
             lista_tareas.eliminar_tarea(id_tarea) #en la lista de tareas ejecuta el método eliminar tarea con parámetrp el id que ingreso el ususario
         elif opcion == "4":  #con el condicional if, si es verdad que el valor guardado en opcion es 4
