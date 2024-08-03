@@ -258,21 +258,25 @@ def main(): #llama al procedimiento main
         menu()  #llama al procedeimiento menu
         opcion = input("Seleccione una opción: ")  #crea una variable que guarda un valor solicitado al usuario
         if opcion == "1":  #con el condicional if, si es verdad que el valor guardado en opcion es 1
-            descripcion = input("Ingrese la descripción de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
-            if lista_tareas.buscar_tarea_descripcion(descripcion):
-                print( "La tarea ya existe") #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
-                seguir= int(input("Si querés seguir agregando, ingresá 1. Si querés volver al menú ingresá 2: "))
-                if seguir == 1:
-                    descripcion = input("Ingrese la descripción de la tarea: ")
+            entrar_bucle= True
+            while entrar_bucle == True:
+                descripcion = input("Ingrese la descripción de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
+                tarea_existe = lista_tareas.buscar_tarea_descripcion(descripcion)
+                if tarea_existe:
+                    print( "La tarea ya existe") #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
+                    seguir= int(input("Si querés seguir agregando, ingresá 1. Si querés volver al menú ingresá 2: "))
+                    if seguir == 2: 
+                        entrar_bucle = False
                 else:
-                    break
-            prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
-            while prioridad not in [1, 2, 3]:
-                print("La prioridad debe ser númerica")
+                    entrar_bucle = False
+            if entrar_bucle == False and tarea_existe == False:
                 prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
-            categoria = input("Ingrese la categoría de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
-            lista_tareas.agregar_tarea(descripcion, prioridad, categoria)  #Si no, ejecuta el método agregar_tarea de la lista enlazada 
-            print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
+                while prioridad not in [1, 2, 3]:
+                    print("La prioridad debe ser númerica")
+                    prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
+                categoria = input("Ingrese la categoría de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
+                lista_tareas.agregar_tarea(descripcion, prioridad, categoria)  #Si no, ejecuta el método agregar_tarea de la lista enlazada 
+                print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
         elif opcion == "2": #con el condicional if, si es verdad que el valor guardado en opcion es 2
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, imprime el mensaje
