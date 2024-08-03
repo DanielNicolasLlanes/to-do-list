@@ -29,7 +29,6 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
     #este método se crea para agregar una tarea en la lista, envuelve la tarea en un nodo, le asigna un valor unico de Id y por último la ordena por prioridad 
     def agregar_tarea(self, descripcion, prioridad, categoria): #define el método con los parámetros descripción, prioridad y categoria
-        assert prioridad is int, "debe ser un número entero"
         tarea = Tarea(self.id_actual, descripcion, prioridad, categoria) #crea un objeto de clase Tarea y le asigna como ID el valor definido en self.id_actual y los demás valores pasados como parámetro
         nuevo_nodo = Nodo(tarea) #envuelve el objeto tarea creado dentro de un nodo y lo asigna a una variable  
         self.id_actual += 1 #incrementa el id en uno para la siguiente tarea
@@ -264,16 +263,19 @@ def main(): #llama al procedimiento main
                 tarea_existe = lista_tareas.buscar_tarea_descripcion(descripcion)
                 if tarea_existe:
                     print( "La tarea ya existe") #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
-                    seguir= int(input("Si querés seguir agregando, ingresá 1. Si querés volver al menú ingresá 2: "))
-                    if seguir == 2: 
+                    seguir= (input("Si querés seguir agregando, ingresá 1. Si querés volver al menú ingresá 2: "))
+                    while seguir not in ["1", "2"]:
+                        seguir = (input("la respuesta debe ser numérica: 1 para seguir agregando y 2 para volver al menú: "))
+                    if seguir == "2": 
                         entrar_bucle = False
                 else:
                     entrar_bucle = False
             if entrar_bucle == False and tarea_existe == False:
-                prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
-                while prioridad not in [1, 2, 3]:
+                prioridad = (input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
+                while prioridad not in ["1", "2", "3"]:
                     print("La prioridad debe ser númerica")
-                    prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
+                    prioridad = (input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
+                prioridad = int(prioridad)
                 categoria = input("Ingrese la categoría de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
                 lista_tareas.agregar_tarea(descripcion, prioridad, categoria)  #Si no, ejecuta el método agregar_tarea de la lista enlazada 
                 print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
