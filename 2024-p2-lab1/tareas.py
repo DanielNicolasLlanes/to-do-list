@@ -256,6 +256,7 @@ def main(): #llama al procedimiento main
     while True:  #crea bucle condicional, mientras sea True
         menu()  #llama al procedeimiento menu
         opcion = input("Seleccione una opción: ")  #crea una variable que guarda un valor solicitado al usuario
+        
         if opcion == "1":  #con el condicional if, si es verdad que el valor guardado en opcion es 1
             entrar_bucle= True
             while entrar_bucle == True:
@@ -279,19 +280,24 @@ def main(): #llama al procedimiento main
                 categoria = input("Ingrese la categoría de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
                 lista_tareas.agregar_tarea(descripcion, prioridad, categoria)  #Si no, ejecuta el método agregar_tarea de la lista enlazada 
                 print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
+        
         elif opcion == "2": #con el condicional if, si es verdad que el valor guardado en opcion es 2
+            seguir = True
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, imprime el mensaje
-            descripcion = input("ingrese la descripción de la tarea a completar: ").lower()
-            if not lista_tareas.buscar_tarea_descripcion(descripcion):
-                print("No hay tareas con esa descripción")
-                break
-            lista_tareas.mostrar_tareas_descripcion(descripcion)
-            id_tarea = int(input("Ingrese el ID de la tarea a completar: ")) #crea una variable que guarda el valor que ingresa el usuario
-            if lista_tareas.completar_tarea(id_tarea): #mediante el condicional if si el método completar_tarea (usando el parámetro de id que ingreso el usuario) es True
-                print ("Tarea Completada")  #muestra en pantalla "Tarea Completada"
-            else: #si el método completar_tarea no es True y termna de recorrer la lista, significa que el id buscado no exste en la lista 
-                print ("Tarea no encontrada") #muestra en pantalla Tarea no encontrada
+                seguir = False
+            if seguir:
+                descripcion = input("ingrese la descripción de la tarea a completar: ").lower()
+                if not lista_tareas.buscar_tarea_descripcion(descripcion):
+                    print("No hay tareas con esa descripción")
+                    break
+                lista_tareas.mostrar_tareas_descripcion(descripcion)
+                id_tarea = int(input("Ingrese el ID de la tarea a completar: ")) #crea una variable que guarda el valor que ingresa el usuario
+                if lista_tareas.completar_tarea(id_tarea): #mediante el condicional if si el método completar_tarea (usando el parámetro de id que ingreso el usuario) es True
+                    print ("Tarea Completada")  #muestra en pantalla "Tarea Completada"
+                else: #si el método completar_tarea no es True y termna de recorrer la lista, significa que el id buscado no exste en la lista 
+                    print ("Tarea no encontrada") #muestra en pantalla Tarea no encontrada
+        
         elif opcion == "3":  #con el condicional if, si es verdad que el valor guardado en opcion es 3
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, imprime el mensaje
@@ -302,25 +308,31 @@ def main(): #llama al procedimiento main
                     lista_tareas.eliminar_tarea(id_tarea) #en la lista de tareas ejecuta el método eliminar tarea con parámetrp el id que ingreso el ususario
             else:
                 print("No existe ninguna tarea con esa descripción")
+        
         elif opcion == "4":  #con el condicional if, si es verdad que el valor guardado en opcion es 4
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, imprime el mensaje
             else:
                 lista_tareas.mostrar_tareas() #Si no, ejecuta el método mostrar tareas en la lista enlazada
+        
         elif opcion == "5":  #con el condicional if, si es verdad que el valor guardado en opcion es 5
             if lista_tareas.esta_vacia(): #Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, muestra el mensaje
             else:
                 lista_tareas.mostrar_tareas_pendientes() #Si no, ejecuta el método mostrar pendientes en la lista enlazada
+        
         elif opcion == "6":
             lista_tareas.guardar_en_csv(archivo_csv)
+        
         elif opcion == "7":
             lista_tareas.cargar_desde_csv(archivo_csv)
+        
         elif opcion == "8":  #con el condicional if, si es verdad que el valor guardado en opcion es 8
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, muestra el mensaje
             else:
                 lista_tareas.mostrar_descripcion() # Si no, llama al metodo mostrar_descripcion()
+        
         elif opcion == "9": #con el condicional if, si es verdad que el valor guardado en opcion es 9
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, muestra el mensaje
@@ -328,6 +340,7 @@ def main(): #llama al procedimiento main
                 descripcion = input("Ingrese la descripción de la tarea: ") # Si no, pide al usuario que ingrese la descripción de la tarea
                 if lista_tareas.buscar_tarea_descripcion(descripcion): # Si la llamada al método buscar_tarea_descripcion es cierta
                     lista_tareas.mostrar_tareas_descripcion(descripcion) # Muestra las tareas de esa descripción
+        
         elif opcion == "10": #con el condicional if, si es verdad que el valor guardado en opcion es 10
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualemten no hay tareas") # Si es cierto, muestra el mensaje
@@ -337,11 +350,13 @@ def main(): #llama al procedimiento main
                     lista_tareas.mostrar_tareas_categoria(categoria) # Muestra las tareas de esa categoría
                 else:
                     print("No existe esa categoría") # Si no, muestra el mensaje
+        
         elif opcion == "11": #con el condicional if, si es verdad que el valor guardado en opcion es 11
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, muestra el mensaje
             else:
                 lista_tareas.mostrar_estadisticas() # Si no, llama al método de mostrar estadisticas
+        
         elif opcion == "12": #con el condicional if, si es verdad que el valor guardado en opcion es 12
             print("Saliendo del sistema de gestión de tareas.")  #avisa al usuario por pantalla "saliendo del sistema de gestion de tareas"
             break  #rompe el ciclo while
