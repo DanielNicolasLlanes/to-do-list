@@ -290,13 +290,13 @@ def main(): #llama al procedimiento main
                 descripcion = input("ingrese la descripción de la tarea a completar: ").lower()
                 if not lista_tareas.buscar_tarea_descripcion(descripcion):
                     print("No hay tareas con esa descripción")
-                    break
-                lista_tareas.mostrar_tareas_descripcion(descripcion)
-                id_tarea = int(input("Ingrese el ID de la tarea a completar: ")) #crea una variable que guarda el valor que ingresa el usuario
-                if lista_tareas.completar_tarea(id_tarea): #mediante el condicional if si el método completar_tarea (usando el parámetro de id que ingreso el usuario) es True
-                    print ("Tarea Completada")  #muestra en pantalla "Tarea Completada"
-                else: #si el método completar_tarea no es True y termna de recorrer la lista, significa que el id buscado no exste en la lista 
-                    print ("Tarea no encontrada") #muestra en pantalla Tarea no encontrada
+                else:
+                    lista_tareas.mostrar_tareas_descripcion(descripcion)
+                    id_tarea = int(input("Ingrese el ID de la tarea a completar: ")) #crea una variable que guarda el valor que ingresa el usuario
+                    if lista_tareas.completar_tarea(id_tarea): #mediante el condicional if si el método completar_tarea (usando el parámetro de id que ingreso el usuario) es True
+                        print ("Tarea Completada")  #muestra en pantalla "Tarea Completada"
+                    else: #si el método completar_tarea no es True y termna de recorrer la lista, significa que el id buscado no exste en la lista 
+                        print ("Tarea no encontrada") #muestra en pantalla Tarea no encontrada  
         
         elif opcion == "3":  #con el condicional if, si es verdad que el valor guardado en opcion es 3
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
