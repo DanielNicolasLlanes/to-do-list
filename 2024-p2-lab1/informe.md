@@ -46,6 +46,8 @@ Los objetivos específicos del proyecto propuestos por el docente son:
 
         -   contar_tareas_pendientes_cte: de orden cconstante. Simplemente retorna el valor de la variable pendiente de la lista enlazada.Esta variable se va actualizando con los métodos agregar tarea, eliminar tarea y completar tarea.
 
+        -buscar_tarea_id: recorre la lista y recibe un parámetro para comparar con el id de la tarea del nodo actuak que tenga.
+
         -   mostrar_estadisticas: muestra por pantalla un calculo del porcentaje de tareas que figuran completas sobre el total de las tareas de la lista enlazada.
 
         -   menu: es un procedimiento que muestra en pantalla las opciones posibles a elegir enumerandolas del 1 al 12
@@ -72,8 +74,8 @@ Los objetivos específicos del proyecto propuestos por el docente son:
 4. Implementación y Ejemplo
     Detalles de Implementación:
         Explicación breve de cómo se implementaron las funcionalidades principales.
-        
-"""""""""////////----------
+    Implementamos el menú para que el usuario pueda interactuar y utilizar el programa de acuerdo a sus necesidades. Cada una de las funcionalidades fue testeada y modificada/corregida a medida que nos fue necesario para que el programa funcione eficientemente.
+
 
     Casos de Uso y Ejemplos:
         Ejemplos de ejecución del sistema para diferentes escenarios de uso.
@@ -100,40 +102,23 @@ Los objetivos específicos del proyecto propuestos por el docente son:
         ¿Cuál es la complejidad temporal del método para eliminar una tarea de la lista enlazada?
         La complejidad temporal de eliminar tareas es de orden lineal ya que en el peor de los casos, el método deberá recorrer toda la lista pasando por todos los elementos. Podemos deducir esto gracias a la condición "While actual is not None" que nos indica que la variable actual recorre todos los elementos hasta llegar al último en caso de no encontrar la coincidencia con el id.
 
-
-"""""""""////////----------
         ¿Cómo podríamos modificar el sistema para soportar múltiples categorías por tarea?
         Podemos asignarle al atributo categoria, una lista vacia en la que se guarden las categorias que el usuario quiera ingresar, lo que nos llevaría a modificar el atributo en la clase Tarea y modificar el menú debiendo crear una función que maneje la agregación de las categorias a la lista. 
         
         Ejemplo propuesto para que soporte múltiples categorias:
         Creamos una función para insertar un elemento a una lista que será la lista de categorias.
 
-        def menu_categoria(categoria):
-            elemento = input("Ingrese la categoría de la tarea: ")
-            categoria.append(elemento)
-
-        if opcion == "1":  
-            descripcion = input("Ingrese la descripción de la tarea: ") 
-            prioridad = int(input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3=alta)))
-            categoria = []
-            menu_categoria(categoria)
-            
-            opcion_categoria = 1
-            while eleccion != 0:
-                print("desea agregar otra categoria?")
-                print("Presione 0 para no, 1 para si")
-                eleccion = int(input("Ingrese la opcion: "))
-                if eleccion == 1:
-                    menu_categoria(categoria)
-
-
-
 6. Resultados y Conclusiones
 
     Resultados Obtenidos:
         Evaluación del éxito en la implementación de las funcionalidades.
+    La implementación de las funcionalidades fue exitosa aunque con errores en una primera etapa. Nos encontramos con varias excepciones que no sabiamos manejar o que se nos habían pasado por alto lo cual nos llevo a una revisión mas minusiosa para corregir los errores críticos que se hacian notar a la ejecución del programa y rompian la ejecución. Quedan aún muchas cosas por mejorar o corregir.
+
     Conclusiones:
         Resumen de los hallazgos y reflexiones sobre lecciones aprendidas y mejoras futuras.
+    Nos encontramos con una nueva  estructura de datos que tuvimos que analizar y comprender para poder modificarla y agregar métodos, atributos, y funcionalidades que eran necesarias para cumplimentar lo requerido y el mismo funcionamiento del programa. Previo a estudiar esta estructura debimos trabajar en los trabajos prácticos propuestos y que no forman parte de este proyecto, lo que nos fue necesario para poder entender la funcionalidad del programa. Nos fue útil empezar a dibujar las partes del nodo y su comportamiento cuando debíamos recorrer la lista, determinar variables y su comportamiento. Tambien notamos la necesidad de muchas veces usar variables tipo "banderas" que nos ayudaron a manejar la lógica de la estructura de datos. Notamos que los inputs realizados no necesariamente se deben transformar a un entero, si no que muchas veces nos convino primero evaluar el valor ingresado para ver si nos iba a servir según lo que nosotros necesitabamos, y si nos servía transformarlo en un entero o en su caso contrario, conservarlo como string. Creamos un método que nos fue de mas utilidad para trabajar en la opcion 3 de eliminar tarea. 
+    Como mejoras evaluaríamos hacer que los métodos trabajen retornando True y False de manera que podamos sacar los prints y a éstos usarlos en la funcionalidad de las opciones.
+    Como lecciones aprendidas, podemos decir que es necesario documentar todo avance, corrección o propuesta en resolución para no perder la idea. Comentar con el equipo de trabajo alguna solución que creamos que puede funcionar para intercambiar conocimientos e ideas de manera que el código pueda mejorar con el aporte de todas las ideas. Fue necesario hacer una tabla donde tomabamos nota de todos los posibles errores que pudiesen presentarse para que no se pierda ninguno y poder trabajar en ellos.
 
 7. Referencias
 
