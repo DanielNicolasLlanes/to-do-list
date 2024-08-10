@@ -55,13 +55,13 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
             tarea_actual = tarea_actual.siguiente  #actualiza el nodo al siguiente
         return False # Si la condicion no se cumple, por defecto retorna False
 
-    def buscar_tarea_id(self, id):
-        actual = self.cabeza
-        while actual is not None: 
-            if actual.tarea.id == id:
-                return True
-            actual = actual.siguiente
-        return False
+    def buscar_tarea_id(self, id): #crea el método buscar tarea por id
+        actual = self.cabeza # una variable actual con el valor del primer elemento de la lista
+        while actual is not None:  # bloque while que permitirá recorrer los nodos de la lista
+            if actual.tarea.id == id: # condicional que pregunta si el id de la tarea actual es igual al pasado por parametro:
+                return True # si es cierto retorna True
+            actual = actual.siguiente # si la condicion no se cumple, actualiza el valor de actual para seguir recorriendo
+        return False # por defecto la funcion retorna false, en caso de que haya recorrido toda la lista y no haya encontrado coincidencias
 
 
    #este método busca una tarea por id ingresado como parámetro, cambia el valor de completada a True, actualiza el atributo de pendientes y retorna True. En defecto actualiza el nodo al siguiente
@@ -124,10 +124,10 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
         
     def mostrar_descripcion(self)->None: #Muestra solo de descripcion de las tareas
-        tarea_actual = self.cabeza
-        while tarea_actual is not None:
-            print(f"{tarea_actual.tarea.descripcion}")
-            tarea_actual = tarea_actual.siguiente
+        tarea_actual = self.cabeza # la variable tarea_actual se define con el primer elemento de la lista
+        while tarea_actual is not None: # se crea un bloque while para poder recorrer los nodos de la lista
+            print(f"{tarea_actual.tarea.descripcion}") # impirme solo la descripción de la tarea actual
+            tarea_actual = tarea_actual.siguiente # se actaliza la variable tarea_actual para seguir recorriendo los demás elementos de la lista
 
 #muestra por pantalla las tareas que se que tienen el valor ingresado en un parámetro
     def mostrar_tareas_descripcion(self, texto)->None: #define el nombre de la función y que se ingrese un parámetro
@@ -180,7 +180,8 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
         print("Completaste " + str(self.tamano - self.pendientes) + " tareas de " + str(self.tamano)) #muestra por pantalla el mensaje del cálculo del porcentaje
 
 
-        
+
+
     # Carga y guardado de archivos
     def guardar_en_csv(self, archivo):
         with open(archivo, mode='w', newline='') as file:
@@ -189,7 +190,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
             while actual is not None:
                 writer.writerow([actual.tarea.id, actual.tarea.descripcion, actual.tarea.prioridad, actual.tarea.categoria, actual.tarea.completada])
                 actual = actual.siguiente
-        print(f"Tareas guardadas en {archivo} con éxito.")
+        #print(f"Tareas guardadas en {archivo} con éxito.")
 
     def cargar_desde_csv(self, archivo):
         if not os.path.exists(archivo):
@@ -202,7 +203,7 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
                 tarea = Tarea(id, descripcion, prioridad, categoria)
                 tarea.completada = completada
                 self.agregar_tarea_existente(tarea)
-            print(f"Tareas cargadas desde {archivo} con éxito.")
+            #print(f"Tareas cargadas desde {archivo} con éxito.")
 
     def agregar_tarea_existente(self, tarea):
         nuevo_nodo = Nodo(tarea)
@@ -218,6 +219,9 @@ class ListaEnlazada: #se crea la clase ListaEnlazada que contendrá objetos tipo
 
         if tarea.id >= self.id_actual:
             self.id_actual = tarea.id + 1
+        
+        self.pendientes +=1 #se incrementa pendientes en 1 cada vez que se agrega una tarea
+        self.tamano += 1 #se incrementa en 1 tamano para ir contando las tareas que se van agregando
 
 
 #asserts
@@ -267,84 +271,84 @@ def main(): #llama al procedimiento main
         opcion = input("Seleccione una opción: ")  #crea una variable que guarda un valor solicitado al usuario
         
         if opcion == "1":  #con el condicional if, si es verdad que el valor guardado en opcion es 1
-            entrar_bucle= True
-            while entrar_bucle == True:
+            entrar_bucle= True # se crea una variable bandera entrar_bucle como controlador del bloque while
+            while entrar_bucle == True: # se crea el bloque while para menejar las entradas del usuario en los inputs
                 descripcion = input("Ingrese la descripción de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
-                tarea_existe = lista_tareas.buscar_tarea_descripcion(descripcion)
-                if tarea_existe:
-                    print( "La tarea ya existe") #indica que la tarea que se quiere agregar ya esxiste, por lo que no se agregará
-                    seguir= (input("Si querés seguir agregando, ingresá 1. Si querés volver al menú ingresá 2: "))
-                    while seguir not in ["1", "2"]:
-                        seguir = (input("la respuesta debe ser numérica: 1 para seguir agregando y 2 para volver al menú: "))
-                    if seguir == "2": 
-                        entrar_bucle = False
-                else:
-                    entrar_bucle = False
-            if entrar_bucle == False and tarea_existe == False:
+                tarea_existe = lista_tareas.buscar_tarea_descripcion(descripcion) # se crea la variable tarea_existe que guardará un booleano dependiendo si existe o no dicha tarea
+                if tarea_existe: # si la tarea fue encontrada en la lista por su descripción:
+                    print( "La tarea ya existe") #indica que la tarea que se quiere agregar ya existe, por lo que no se agregará
+                    seguir= (input("Si querés seguir agregando, ingresá 1. Si querés volver al menú ingresá 2: ")) # se crea una variable preguntandole al usuario a travéz de un input si desea seguir agregando
+                    while seguir not in ["1", "2"]: # se crea un bloque while que se activará si el usuario no introdujo valores de entrada válidos para seguir añadiendo la tarea
+                        seguir = (input("la respuesta debe ser numérica: 1 para seguir agregando y 2 para volver al menú: ")) # se pide nuevamente que se ingrese un valor en correcto en la variable seguir
+                    if seguir == "2": # crea un condicional que pregunta si la opción elegida por el usuario fue la 2:
+                        entrar_bucle = False # en caso de ser cierto, pone en False la variable entrar_bucle
+                else: # si la tarea no fue encontrada por su descripción:
+                    entrar_bucle = False # la variable entrar_bucle se establece en False, para que no vuelva a pedir que se ingrese la descripción
+            if entrar_bucle == False and tarea_existe == False: # se crea una sentencia que se asegura de que la descripcion fue ingresada y que no existe en la lista:
                 prioridad = (input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
-                while prioridad not in ["1", "2", "3"]:
-                    print("La prioridad debe ser númerica")
-                    prioridad = (input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #crea una variable que guarda el valor que ingresa el usuario
-                prioridad = int(prioridad)
+                while prioridad not in ["1", "2", "3"]: # se crea un bloque while por si la prioridad ingresada por el usuario no es la esperada
+                    print("La prioridad debe ser númerica") # en ese caso se vuelve a pedir que ingrese un valor correcto
+                    prioridad = (input("Ingrese la prioridad de la tarea (1 = baja, 2 = media, 3 = alta): ")) #vuelve a crear una variable que guarda el valor que ingresa el usuario
+                prioridad = int(prioridad) # se transforma ese valor a un número entero
                 categoria = input("Ingrese la categoría de la tarea: ") #crea una variable que guarda el valor que ingresa el usuario
                 lista_tareas.agregar_tarea(descripcion, prioridad, categoria)  #Si no, ejecuta el método agregar_tarea de la lista enlazada 
                 print("Tarea agregada con éxito.") #muestra un mensaje al usuario de que la tarea se agrego exitosamente
         
         elif opcion == "2": #con el condicional if, si es verdad que el valor guardado en opcion es 2
-            seguir = True
+            seguir = True # se crea una variable bandera para controlar el flujo del bloque if
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
                 print("Actualmente no hay tareas") # Si es cierto, imprime el mensaje
-                seguir = False
-            if seguir:
-                descripcion = input("ingrese la descripción de la tarea a completar: ").lower()
-                if not lista_tareas.buscar_tarea_descripcion(descripcion):
-                    print("No hay tareas con esa descripción")
-                else:
-                    lista_tareas.mostrar_tareas_descripcion(descripcion)
+                seguir = False # Si es cierto, actualiza el valor de seguir a False
+            if seguir: # si seguir es True, significa que la lista no esta vacía, por lo tanto:
+                descripcion = input("ingrese la descripción de la tarea a completar: ").lower() # Se pide que se ingrese la descripción de la tarea a completar
+                if not lista_tareas.buscar_tarea_descripcion(descripcion): #si la descripcion brindada por el usuario no se encuentra en la lista:
+                    print("No hay tareas con esa descripción") # imprime el mensaje correspondiente
+                else: # si la descripción ingresada coincide con una de las tareas de la lista:
+                    lista_tareas.mostrar_tareas_descripcion(descripcion) # se mostrarán las descripciones de las tareas al usuario
                     while True:  # Bucle para asegurar que el usuario ingrese un número válido de ID
-                        id_tarea = input("Ingrese el ID de la tarea a completar: ")
-                        if id_tarea.isdigit():  # Verifica si la entrada es un número
-                            id_tarea = int(id_tarea)
+                        id_tarea = input("Ingrese el ID de la tarea a completar: ") # se pide al usuario que ingrese el valor de ID de la tarea a completar
+                        if id_tarea.isdigit():  # verifica que la entrada no este vacía:
+                            id_tarea = int(id_tarea) # transforma el valor del usuario a un número entero
                             break  # Sale del bucle si el ID es válido
-                        else:
-                            print("Por favor, ingrese un número de ID válido.")
+                        else: # si la entrada no es un número válido:
+                            print("Por favor, ingrese un número de ID válido.") # imprime el mensaje correspondiente
                     if lista_tareas.completar_tarea(id_tarea): #mediante el condicional if si el método completar_tarea (usando el parámetro de id que ingreso el usuario) es True
                         print ("Tarea Completada")  #muestra en pantalla "Tarea Completada"
                     else: #si el método completar_tarea no es True y termna de recorrer la lista, significa que el id buscado no exste en la lista 
                         print ("Tarea no encontrada") #muestra en pantalla Tarea no encontrada  
         
-        elif opcion == "3":
-                seguir = True
-                if lista_tareas.esta_vacia(): 
-                    print("Actualmente no hay tareas")
-                    seguir = False
-                else:                   
-                    descripcion = input("Ingrese la descripción de la tarea a eliminar: ").lower()
-                    if lista_tareas.buscar_tarea_descripcion(descripcion): 
-                        lista_tareas.mostrar_tareas_descripcion(descripcion)
-                        id_tarea = int(input("Ingrese el ID de la tarea a eliminar: "))
+        elif opcion == "3": #con el condicional if, si es verdad que el valor guardado en opcion es 3
+                seguir = True # se crea un variable bandera para controlar el flujo del bloque if
+                if lista_tareas.esta_vacia(): # pregunta si la lista esta vacía:
+                    print("Actualmente no hay tareas") # si es cierto, muestra el siguiente mensaje
+                    seguir = False # y pone la variable seguir en False
+                else: # si la lista no está vacía:
+                    descripcion = input("Ingrese la descripción de la tarea a eliminar: ").lower() # se pide al usuario que ingrese una descripción y se transforma a minúsculas
+                    if lista_tareas.buscar_tarea_descripcion(descripcion):  # si la descripción ingresada por el usuario se encuentra en la lista:
+                        lista_tareas.mostrar_tareas_descripcion(descripcion) # llama al método, con la descripción ingresada como parámetro
+                        id_tarea = int(input("Ingrese el ID de la tarea a eliminar: ")) # se pide al usuario que ingrese el ID de la tarea a eliminar
                         
-                        while lista_tareas.buscar_tarea_id(id_tarea) != True:
-                            print("Ingreso un ID incorrecto.")
-                            continua = (input("Si desea ingresar ID presione 1; si desea volver a menú presione 2: "))
-                            while continua not in ["1", "2"]:
-                                continua = (input("Si desea ingresar ID presione 1; si desea volver a menú presione 2: "))
+                        while lista_tareas.buscar_tarea_id(id_tarea) != True: # se crea un bloque while que si la tarea no se encuentra en la lista por su id:
+                            print("Ingreso un ID incorrecto.") # imprime que el ID fue incorrecto
+                            continua = (input("Si desea ingresar ID presione 1; si desea volver a menú presione 2: ")) # se pide al usuario que ingrese un ID o que vuelva al menú principal
+                            while continua not in ["1", "2"]: # se crea un bloque while para controlar que el usuario haya introducido valores correctos
+                                continua = (input("Si desea ingresar ID presione 1; si desea volver a menú presione 2: ")) # muestra nuevamente el mensaje pidiendo un valor
                                 
-                            continua = int(continua)
+                            continua = int(continua) # una vez que el valor es correcto, se transforma en número entero
                             
-                            if continua == 2:
-                                seguir = False
-                                break
+                            if continua == 2: # si el valor de continua es 2:
+                                seguir = False # se establece la variable seguir en False
+                                break # se corta el ciclo del while
                             
-                            if continua == 1:
-                                id_tarea = int(input("Ingrese el ID de la tarea a eliminar: "))         
+                            if continua == 1: # si el valor de continua es 1:
+                                id_tarea = int(input("Ingrese el ID de la tarea a eliminar: ")) # se pide el id de la tarea a eliminar         
                                 
-                        if seguir == True:
-                            lista_tareas.eliminar_tarea(id_tarea)
-                            print ("La Tarea se eliminó correctamente")
+                        if seguir == True: # si seguir sigue teniendo el valor de True
+                            lista_tareas.eliminar_tarea(id_tarea) # se elimina la tarea de la lista
+                            print ("La Tarea se eliminó correctamente") # se imprime el mensaje correspondiente
                         
-                    else:
-                         print("No existe tarea con esa descripción")
+                    else: # si la descripcion de la tarea ingresada por el usuario no existe en la lista:
+                         print("No existe tarea con esa descripción") # imprime el mensaje
         
         elif opcion == "4":  #con el condicional if, si es verdad que el valor guardado en opcion es 4
             if lista_tareas.esta_vacia(): # Pregunta si la lista esta vacía
