@@ -301,7 +301,13 @@ def main(): #llama al procedimiento main
                     print("No hay tareas con esa descripción")
                 else:
                     lista_tareas.mostrar_tareas_descripcion(descripcion)
-                    id_tarea = int(input("Ingrese el ID de la tarea a completar: ")) #crea una variable que guarda el valor que ingresa el usuario
+                    while True:  # Bucle para asegurar que el usuario ingrese un número válido de ID
+                        id_tarea = input("Ingrese el ID de la tarea a completar: ")
+                        if id_tarea.isdigit():  # Verifica si la entrada es un número
+                            id_tarea = int(id_tarea)
+                            break  # Sale del bucle si el ID es válido
+                        else:
+                            print("Por favor, ingrese un número de ID válido.")
                     if lista_tareas.completar_tarea(id_tarea): #mediante el condicional if si el método completar_tarea (usando el parámetro de id que ingreso el usuario) es True
                         print ("Tarea Completada")  #muestra en pantalla "Tarea Completada"
                     else: #si el método completar_tarea no es True y termna de recorrer la lista, significa que el id buscado no exste en la lista 

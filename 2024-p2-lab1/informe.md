@@ -1,11 +1,9 @@
 ## Informe del Proyecto: Sistema de Gestión de Tareas Pendientes
 1. Introducción
 
-    Breve descripción del proyecto y su importancia.
-    Objetivos del proyecto y qué se espera lograr con la implementación del sistema.
-    Este proyecto titulado "Sistema de Gestión de Tareas Pendientes" es una propuesta de la cátedra de Programación 2 de la Tecnicatura en Desarrollo de Software del Instituto Técnico Superios Córdoba. El desarrollo del mismo se orienta a desarrollar un sistema que permita a usuarios facilitar la gestión de tareas de manera efectiva. SU funcionamiento se basa tanto en la posibilidad de agregar, eliminar y marcar tareas como completas como en la posibilidad de tener un sistema de prioridades de dichas tareas, realizar búsquedasm organizarlas, etc.
+    Este proyecto titulado "Sistema de Gestión de Tareas Pendientes" es una propuesta de la cátedra de Programación 2 de la Tecnicatura en Desarrollo de Software del Instituto Técnico Superior Córdoba. El desarrollo del mismo se orienta a implementar un sistema que permita a usuarios facilitar la gestión de tareas de manera efectiva. SU funcionamiento se basa tanto en la posibilidad de agregar, eliminar y marcar tareas como completas como en la posibilidad de tener un sistema de prioridades de dichas tareas, realizar búsquedas y organizarlas, etc.
     
-    Es importante recalcar que la práctica ayuda a aprehender conocimientos y conceptos trabajados en clase, tales como POO, estructuras de datos (en este caso, focalizando en listas enlazadas), nociones de orden y annálisis de algoritmos, etc. Muchas veces los ejercicios realizados en el transcurso de la mcursada son pequeños recortes que no reflejan del todo la compleja realidad de la profesión. De esta manera comenzamos a entender cómo se aplica en un caso concreto todo lo visto en la materia de manera integral. Es importante destacar que el trabajo en grupo es una práctica que nos prepara para integrar en un futuro algún equipo de trabajo.
+    Es importante recalcar que la práctica ayuda a aprehender conocimientos y conceptos trabajados en clase, tales como POO, estructuras de datos (en este caso, focalizando en listas enlazadas), nociones de orden y análisis de algoritmos, etc. Muchas veces los ejercicios realizados en el transcurso de la cursada son pequeños recortes que no reflejan del todo la compleja realidad de la profesión. De esta manera comenzamos a entender cómo se aplica en un caso concreto todo lo visto en la materia de manera integral. Es importante destacar que el trabajo en grupo es una práctica que nos prepara para integrar en un futuro algún equipo de trabajo.
 
 
 Los objetivos específicos del proyecto propuestos por el docente son:
@@ -54,52 +52,32 @@ Los objetivos específicos del proyecto propuestos por el docente son:
 
         -   main: es una función sin parámetros formado por una lista de tareas de clase lista enlazada donde con un bucle y según la opción ingresada por el ususario, ejecuta los métodos de la lista enlazada. Se crea la variable lista_tareas que contiene un objeto de clase Lista_Enlazada. Con un bucle que se ejecute siempre y cuando no se ingrese la opción 12 para salir del programa. Se ejecuta usando el procedimiento menu(), según la opción ingresada por el usuario en esa variable y ejecuta los métodos definidos de la lista enlazada para correr el programa.
         
-
     Estructuras de Datos Utilizadas:
         Explicación de la implementación de la lista enlazada y nodos en el sistema.
-        El programa usa una estructura de datos de lista enlazada. Para lograr su implementación hacemos uso de las clases Nodo que los elementos que componen a la lista. Cada Nodo guarda un dato y una referencia hacia un siguiente nodo. En ese dato almacenamos objetos de una clase tarea.
-
 
 3. Metodología y Diseño
     Diseño del Código:
         Descripción concisa de las clases principales (Tarea, Nodo, ListaEnlazada) y su interacción.
-        -   clase Tarea: cada objeto de esta clase se crea con el id, descripcion y prioridad ingresadas por el usuario, mientras que el atributo categoria si no es ingresado por el usuario el programa le asigna por defecto el valor "General" y el atributo completada siempre inicializado en False.
 
-        -   clase Nodo: se crea con dos atributos, uno que guardará la tarea en si y otra parte que hará referencia al siguiente nodo. Esta clase creará los nodos que necesita la lista enlazada para operar.
+4. Implementación y Ejemplos
 
-        -   clase ListaEnlazada: crea el atributo de la cabeza de a lista en None, crea un atributo para manejar los id de cada tarea, crea dos atributos mas (pendiente y tamano) uno para manejar las tareas pendientes y otro para saber el tamaño de la lista. Iniciados estos últimos en 0.
-
-        Interacción: Todas las clases definidas en el programa, se comunican entre ellas a través del uso de los métodos creados en la clase Lista Enlzazada. Estos métodos crean objetos de clase Tarea y objetos de clase Nodo los cuales serán unidos gracias a sus referencias y almacenarán los datos de cada tarea.
-
-4. Implementación y Ejemplo
     Detalles de Implementación:
         Explicación breve de cómo se implementaron las funcionalidades principales.
+
     Implementamos el menú para que el usuario pueda interactuar y utilizar el programa de acuerdo a sus necesidades. Cada una de las funcionalidades fue testeada y modificada/corregida a medida que nos fue necesario para que el programa funcione eficientemente.
 
 
     Casos de Uso y Ejemplos:
         Ejemplos de ejecución del sistema para diferentes escenarios de uso.
-        Se puede utilizar para: 
-            -   Instituciones privadas y públicas que necesiten llevar un control real sobre obligaciones, actividades, tareas, objetivos, etc que necesiten llevarse a cabo.
-            -   También se puede usar para uso personal como agenda diaria en la cual un usuario puede marcar sus actividades y llevar un control sobre ellas. 
-            -   Puede ser usada también por profesionales para organizar sus objetivos y / o responsabilidades en su vida diaria.
-            -   Tambien podria funcionar como una lista de compras
-        Es decir el uso del programa puede ser individual o colectivo dependiendo de la necesidad de los usuarios o de la empresa. Es un programa bastante versátil en cuanto a la solución que brinda en organización de tareas.
-
 
 5. Preguntas Conceptuales
 
     Preguntas para Análisis:
         ¿Qué sucede si intentamos agregar una tarea que ya existe en la lista?
-        Si intentamos agregar una tarea que ya existe, el programara llamará a la función buscar_tarea_descripcion que corroborará con el "descripción" si esa tarea ya existe en la lista, mostrando en pantalla al usuario en caso de ser cierto no permitiendo su agregación a la lista. 
-
-        ¿Cómo se implementa la priorización de tareas en la lista enlazada? 
-        La priorización se implementa en el momento en que se agrega una tarea. La Tarea solo se agregará al principio de la lista si la prioridad es mayor a la de la primer tarea, sino se agregará por delante de la tarea que tenga la misma prioridad o menor que ella.
-
-        ¿Qué sucede si dos tareas tienen la misma prioridad?
-        Si dos tareas tienen la misma prioridad, la que se intenta agregar se colocará antes de la que ya se encuentra en la lista quedando como una tarea mas reciente.
-
+        ¿Cómo se implementa la priorización de tareas en la lista enlazada? ¿Qué sucede si dos tareas tienen la misma prioridad?
         ¿Cuál es la complejidad temporal del método para eliminar una tarea de la lista enlazada?
+
+
         La complejidad temporal de eliminar tareas es de orden lineal ya que en el peor de los casos, el método deberá recorrer toda la lista pasando por todos los elementos. Podemos deducir esto gracias a la condición "While actual is not None" que nos indica que la variable actual recorre todos los elementos hasta llegar al último en caso de no encontrar la coincidencia con el id.
 
         ¿Cómo podríamos modificar el sistema para soportar múltiples categorías por tarea?
@@ -107,6 +85,7 @@ Los objetivos específicos del proyecto propuestos por el docente son:
         
         Ejemplo propuesto para que soporte múltiples categorias:
         Creamos una función para insertar un elemento a una lista que será la lista de categorias.
+
 
 6. Resultados y Conclusiones
 
@@ -127,6 +106,7 @@ Los objetivos específicos del proyecto propuestos por el docente son:
 **Apéndices**
 
     [Planilla de Autoevaluación](https://docs.google.com/spreadsheets/d/1cc_deQ0V0TbBGHj1S45etZ_w8wjDF2ecA7n0Xwxf-p8/edit?gid=0#gid=0)
+    [Planilla Testing](https://docs.google.com/spreadsheets/d/1P0drrJUKzYMrdugy-SfrxAiWSMMYc31YnIFXeRP8NN0/edit?pli=1&gid=0)
     Código fuente comentado (si es necesario).
     Ejemplos adicionales de ejecución o casos de prueba.
     
